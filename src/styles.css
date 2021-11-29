@@ -1,0 +1,66 @@
+:root {
+  --randColor: hsla(130, 100%, 80%, 0.8);
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: hsla(300, 50%, 80%, 0.7);
+  font-size: 1.3rem;
+}
+
+label {
+  margin: 1rem;
+}
+
+button{
+  width:auto;
+  height:auto;
+  font-size: 1rem;
+  margin-left: 0.3rem;
+}
+
+
+.card.swap1{
+  background-color: hsla(130, 100%, 80%, 0.8);
+  font-weight: 700;
+  box-shadow: 2px 2px;
+  transform: scale(1.05) rotate(360deg);
+  transition:transform 1s ease-in-out;
+}
+
+.card.swap2{
+  background-color: hsla(900, 100%, 80%, 0.8);
+  font-weight: 700;
+  box-shadow: 2px 2px;
+  transform: scale(1.05) rotate(-360deg);
+  transition:transform 1s ease-in-out;
+}
+
+.form-container {
+  display: inline;
+  margin : 1rem;
+}
+
+.cards-grid {
+  display: grid;
+  margin : 1rem;
+  grid-template-columns: repeat(5,1fr);
+  gap: clamp(0.1rem, 1rem, 10rem);
+}
+
+div.card {
+  display: flex;
+  border: 1px solid salmon;
+  background-color: var(--randColor);
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  min-height: clamp(1.5rem, 4rem, 5rem)  ;
+}
