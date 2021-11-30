@@ -4,16 +4,21 @@ import { bubbleSort } from './utils';
 import './styles.css';
 import Card from './Card';
 
+const DELAY = 2000;
+let root = document.documentElement;
+// root.style.setProperty('--animation-speed', (DELAY - 1500) + 'ms')
+
 function App() {
   const [arrSize, setArrSize] = useState(10);
   const [cards, setCards] = useState([]);
   const [shouldSort, setShouldSort] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [replaceCards, setReplaceCards] = useState(false);
+  const [delay, setDelay] = useState(DELAY);
   const lastSwaps = useRef();
   const lastSwappedCard1 = useRef();
   const lastSwappedCard2 = useRef();
-
-  console.log(cards);
+  
   const randomizeBG = () => {
     let cardArrRefBG = document.querySelectorAll('.card');
     // console.log([...cardArrRefBG]);
@@ -29,16 +34,17 @@ function App() {
   };
 
   useEffect(() => {
-    if (arrSize !== '' && !shouldSort) {
+    if (arrSize !== '' && (!shouldSort || replaceCards)) {
       setCards((cards) => {
         return [...Array(parseInt(arrSize)).keys()].map((el, idx, arr) => [
           Math.floor(Math.random() * arr.length),
           uuid4(),
         ]);
       });
+      setReplaceCards((replaceCards) => false);
     }
     return () => {};
-  }, [arrSize, cards.length, shouldSort]);
+  }, [arrSize, cards.length, shouldSort, replaceCards]);
 
   useEffect(() => {
     if (cards.length > 0) randomizeBG();
@@ -58,8 +64,12 @@ function App() {
           setShouldSort((shouldSort) => false);
           lastSwappedCard1.current = null;
           lastSwappedCard2.current = null;
+          debugger;
+          setCounter((counter) => 0);
           console.log('clearing last timeout');
-          // setCards((cards) => newCards);
+          // debugger
+          setCards((cards) => [...cards]);
+          // debugger
           clearTimeout(timeout);
         } else {
           let newSwapArr = [...cards];
@@ -76,7 +86,7 @@ function App() {
           }
           setCounter((counter) => counter + 1);
         }
-      }, 1500);
+      },delay);
     }
   }, [shouldSort, counter]);
 
@@ -92,11 +102,13 @@ function App() {
   };
 
   const handleSort = () => {
+    // debugger
     setShouldSort((shouldSort) => true);
   };
 
   const handleNewArray = () => {
-    setShouldSort((shouldSort) => false);
+    if(arrSize === '') 
+    setReplaceCards((replaceCards) => true);
   };
 
   return (

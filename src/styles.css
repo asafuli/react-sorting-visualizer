@@ -1,5 +1,6 @@
 :root {
   --randColor: hsla(130, 100%, 80%, 0.8);
+  --animation-speed:500ms
 }
 
 *,
@@ -10,7 +11,7 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   background-color: hsla(300, 50%, 80%, 0.7);
   font-size: 1.3rem;
 }
@@ -19,48 +20,104 @@ label {
   margin: 1rem;
 }
 
-button{
-  width:auto;
-  height:auto;
+button {
+  width: auto;
+  height: auto;
   font-size: 1rem;
   margin-left: 0.3rem;
 }
 
-
-.card.swap1{
-  background-color: hsla(130, 100%, 80%, 0.8);
+.card.swap1 {
   font-weight: 700;
-  box-shadow: 2px 2px;
-  transform: scale(1.05) rotate(360deg);
-  transition:transform 1s ease-in-out;
+  animation-name: swapAnimation1;
+  animation-duration: var(--animation-speed);
+  animation-fill-mode: forwards;
 }
 
-.card.swap2{
-  background-color: hsla(900, 100%, 80%, 0.8);
+.card.swap2 {
   font-weight: 700;
-  box-shadow: 2px 2px;
-  transform: scale(1.05) rotate(-360deg);
-  transition:transform 1s ease-in-out;
+  animation-name: swapAnimation2;
+  animation-duration:var(--animation-speed);
+  animation-fill-mode: forwards;
+}
+
+@keyframes swapAnimation1 {
+  0% {
+    transform: translate(0%, 0%);
+    background-color: hsla(300, 100%, 80%, 0.6);
+  }
+
+  25% {
+    transform: translate(-50%, -20%);
+    background-color: hsla(300, 100%, 80%, 0.6);
+
+  }
+
+  50% {
+    transform: translate(-110%, 0%);
+    background-color: hsla(300, 100%, 80%, 0.6);
+
+  }
+
+  75% {
+    transform: translate(-50%, -20%);
+    background-color: hsla(130, 100%, 80%, 0.8);
+
+  }
+
+  100% {
+    transform: translate(0%, 0%);
+    background-color: hsla(130, 100%, 80%, 0.8);
+  }
+}
+
+@keyframes swapAnimation2 {
+  0% {
+    transform: translate(0%, 0%);
+    background-color: hsla(130, 100%, 80%, 0.8);
+  }
+
+  25% {
+    transform: translate(50%, 20%);
+    background-color: hsla(130, 100%, 80%, 0.8);
+    
+  }
+  50% {
+    transform: translate(110%, 0%);
+    background-color: hsla(130, 100%, 80%, 0.8);
+   
+  }
+  75% {
+    transform: translate(50%, 20%);
+    background-color: hsla(300, 100%, 80%, 0.6);
+  }
+
+  100% {
+    transform: translate(0%, 0%);
+    background-color: hsla(300, 100%, 80%, 0.6);
+
+  }
 }
 
 .form-container {
   display: inline;
-  margin : 1rem;
+  margin: 1rem;
 }
 
 .cards-grid {
   display: grid;
-  margin : 1rem;
-  grid-template-columns: repeat(5,1fr);
+  margin: 1rem;
+  grid-template-columns: repeat(5, 1fr);
   gap: clamp(0.1rem, 1rem, 10rem);
 }
 
 div.card {
   display: flex;
   border: 1px solid salmon;
+  box-shadow: 2px 2px;
   background-color: var(--randColor);
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  min-height: clamp(1.5rem, 4rem, 5rem)  ;
+  min-height: clamp(1.5rem, 4rem, 5rem);
 }
